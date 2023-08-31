@@ -1,0 +1,97 @@
+﻿@model Country
+@{
+    ViewData["Title"] = $"{Model.Name} ({Model.Native})";
+}
+
+<h1><a href="/" class="btn btn-dark">Back</a> @ViewData["Title"] <img style="height:2.5rem;" src="~/img/CountriesFlags/@(Model.Iso3).svg" asp-append-version="true" /></h1>
+
+<div class="table-responsive">
+    <h2>Details</h2>
+    <table class="table">
+        <tr>
+            <th class="table-primary">Name</th>
+            <td>@Model.Name</td>
+            <th class="table-primary">Native</th>
+            <td>@Model.Native</td>
+            <th class="table-primary">ISO 2</th>
+            <td>@Model.Iso2</td>
+            <th class="table-primary">ISO 3</th>
+            <td>@Model.Iso3</td>
+        </tr>
+        <tr>
+            <th class="table-primary">Phone Code</th>
+            <td>@Model.Phone_code</td>
+            <th class="table-primary">Currency</th>
+            <td>@Model.Currency_name (@Model.Currency | @Model.Currency_symbol)</td>
+            <th class="table-primary">Capital</th>
+            <td>@Model.Capital</td>
+            <th class="table-primary">Nationality</th>
+            <td>@Model.Nationality</td>
+        </tr>
+    </table>
+    <h2>Translations</h2>
+    <table class="table">
+        <tr>
+            <th class="table-primary">KR</th>
+            <td>@Model.Translations?.Kr</td>
+            <th class="table-primary">PT</th>
+            <td>@Model.Translations?.Pt</td>
+            <th class="table-primary">NL</th>
+            <td>@Model.Translations?.Nl</td>
+            <th class="table-primary">SE</th>
+            <td>@Model.Translations?.Es</td>
+        </tr>
+        <tr>
+            <th class="table-primary">HR</th>
+            <td>@Model.Translations?.Hr</td>
+            <th class="table-primary">FA</th>
+            <td>@Model.Translations?.Fa</td>
+            <th class="table-primary">DE</th>
+            <td>@Model.Translations?.De</td>
+            <th class="table-primary">FR</th>
+            <td>@Model.Translations?.Fr</td>
+        </tr>
+        <tr>
+            <th class="table-primary">JA</th>
+            <td>@Model.Translations?.Ja</td>
+            <th class="table-primary">IT</th>
+            <td>@Model.Translations?.It</td>
+            <th class="table-primary">CN</th>
+            <td>@Model.Translations?.Cn</td>
+            <th class="table-primary">TR</th>
+            <td>@Model.Translations?.Tr</td>
+        </tr>
+    </table>
+    <h2>Location</h2>
+    <table class="table">
+        <tr>
+            <th class="table-primary">Region</th>
+            <td>@Model.Region</td>
+            <th class="table-primary">Subregion</th>
+            <td>@Model.Subregion</td>
+        </tr>
+    </table>
+    <iframe style="width:100%"
+            height="500"
+            frameborder="0"
+            scrolling="yes"
+            marginheight="0"
+            marginwidth="0"
+            src="https://maps.google.com/maps?q=@Model.Latitude,@Model.Longitude&hl=es&z=6&amp;output=embed">
+    </iframe>
+    <h2>States/Cities</h2>
+    <ul>
+        @foreach (State state in Model.States)
+        {
+            <li>
+                @state.Name (@state.State_code) <a href="https://www.google.com/maps/@@@state.Latitude,@state.Longitude,9z?entry=ttu" target="_blank">Location</a>
+                <ul>
+                    @foreach (City city in state.Cities)
+                    {
+                        <li>@city.Name <a href="https://www.google.com/maps/@@@city.Latitude,@city.Longitude,14z?entry=ttu" target="_blank">Location</a></li>
+                    }
+                </ul>
+            </li>
+        }
+    </ul>
+</div>

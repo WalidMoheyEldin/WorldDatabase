@@ -1,0 +1,34 @@
+﻿@model IEnumerable<Country>
+@{
+    ViewData["Title"] = $"World Countries ({Model.Count()})";
+}
+<h1>@ViewData["Title"]</h1>
+<div class="table-responsive">
+    <table class="table table-hover table-striped align-middle">
+        <thead>
+            <tr>
+                <th>Country</th>
+                <th>ISO</th>
+                <th>Phone Code</th>
+                <th>Currency</th>
+                <th>Capital</th>
+                <th>Location</th>
+                <th>Details</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (Country country in Model)
+            {
+                <tr>
+                    <td>@country.Name (@country.Native)</td>
+                    <td>@country.Iso2 | @country.Iso3</td>
+                    <td>@country.Phone_code</td>
+                    <td>@country.Currency</td>
+                    <td>@country.Capital</td>
+                    <td><a class="btn btn-dark" href="https://www.google.com/maps/@@@country.Latitude,@country.Longitude,6z?entry=ttu" target="_blank">Go</a></td>
+                    <td><a class="btn btn-primary" href="/@country.Id">More</a></td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
